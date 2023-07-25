@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <Nullable>enable</Nullable>
+	  <LangVersion>10</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+    <PackageReference Include="OpenMod.UnityEngine.Redist" Version="2020.3.38" />
+    <PackageReference Include="OpenMod.Unturned.Redist" Version="3.23.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AstarPathfindingProject">
+      <HintPath>libs\AstarPathfindingProject.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
