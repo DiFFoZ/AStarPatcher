@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Pathfinding;
 using SDG.Unturned;
 
 namespace AStarPatcher.Patches;
@@ -14,16 +13,15 @@ internal static class Patch_LevelNavigation
     {
         var matcher = new CodeMatcher(instructions);
 
-        var operand = AccessTools.Constructor(typeof(TriangleMeshNode), new[] { typeof(AstarPath) });
+        var method = AccessTools.Method(typeof(AstarPath), nameof(AstarPath.FlushWorkItems));
 
         return matcher
             .End()
-            .SearchBackwards(ci => ci.Is(OpCodes.Newobj, operand))
+            .SearchBackwards(ci => ci.Calls(method))
             .ThrowIfInvalid("Search failed")
-            .Advance(-4)
+            .Advance(-1)
             .ThrowIfInvalid("Advance failed")
-            .Insert(CodeInstruction.LoadField(typeof(AstarPath), nameof(AstarPath.active)),
-                    new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(AstarPath), nameof(AstarPath.BlockUntilPathQueueBlocked))))
+            .SetOpcodeAndAdvance(OpCodes.Ldc_I4_1)
             .InstructionEnumeration();
     }
 }
