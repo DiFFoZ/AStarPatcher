@@ -5,7 +5,7 @@ using SDG.Unturned;
 
 namespace AStarPatcher.Patches;
 
-[HarmonyPatch(typeof(LevelNavigation), "buildGraph")]
+[HarmonyPatch(typeof(LevelNavigation), nameof(LevelNavigation.load))]
 internal static class Patch_LevelNavigation
 {
     [HarmonyTranspiler]
